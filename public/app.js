@@ -119,15 +119,30 @@ function displayBooks() {
     });
 }
 
-// Database Stuff
-ref.push(data);
-console.log(data);
-
-
+// Database setup
 function populateBooksArray() {
+    ref.on('value', gotData, errorWithData)
+}
 
+function gotData(data) {
+    var books = data.val();
+    let keys = Object.keys(books);
+    
+    for (let i = 0; i < keys.length; i++) {
+        myLibrary.push(books[keys[i]]);
+        
+    }
+
+    console.log(myLibrary);
+    displayBooks();
+}
+
+function errorWithData(err) {
+    console.log(err);
 }
 
 function saveBooksToDatabase() {
 
 }
+
+populateBooksArray();
