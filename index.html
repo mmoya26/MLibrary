@@ -8,8 +8,22 @@
     <link rel="stylesheet" href="master.css">
 </head>
 <body>
+    <h1>Miguel's Library</h1>
+    <button id="add-new-book">Add New Book</button>
     <div class="books"></div>
-    
+    <div class="new-book-form-container">
+        <form class="popup-form">
+            <h3 class="form-title">Add new book</h3>
+            <input type="text" placeholder="Title" class="form-input">
+            <input type="text" placeholder="Author" class="form-input"> 
+            <input type="text" placeholder="Pages" class="form-input">
+            <div class="form-read-container">
+                <label for="haveRead">Have you read this book already?</label>
+                <input type="checkbox" name="" id="haveRead">
+            </div>
+            <button id="add">Add</button>
+        </form>
+    </div>
     <script src="app.js"></script>
 </body>
 </html>

@@ -5,11 +5,37 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+button {
+    border: none;
+    font-weight: bold;
+    padding: 15px;
+    display: block;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+#add-new-book {
+    background-color: rgb(157, 247, 67);
+    color: rgb(31,134,13);
+    margin: 0 auto;
+}
+
+button:focus {
+    outline: none;
+}
+
 .books {
     width: 80%;
     margin: 0 auto;
     display: flex;
     justify-content: space-around;
+    margin-top: 50px;
 }
 
 .book-card {
@@ -22,3 +48,43 @@
     padding: 25px;
 }
 
+.new-book-form-container {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+    margin-top: 100px;
+}
+
+#add {
+    padding: 15px 25px;
+    margin-bottom: 10px;
+}
+
+.popup-form {
+    display: flex;
+    flex-direction: column;
+    background-color: #bdbdbd;
+    width: 20%;
+    align-items: center;
+}
+
+.form-title {
+    margin: 10px 0;
+}
+
+.form-input {
+    width: 70%;
+    border: 2px solid black;
+    margin-bottom: 10px;
+    padding: 15px;
+}
+
+.form-read-container {
+    margin-bottom: 10px;
+}
+
+.form-input:focus {
+    outline: none;
+}
