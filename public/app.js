@@ -62,7 +62,7 @@ function removeSpecificBook(title) {
 }
 
 function displayBooks() {
-
+    alert('working for sure');
     removeAllBooks();
 
     myLibrary.forEach(book => {
