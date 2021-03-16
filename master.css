@@ -34,8 +34,9 @@ button:focus {
     width: 80%;
     margin: 0 auto;
     display: flex;
-    justify-content: space-around;
+    /* justify-content: space-around; */
     margin-top: 50px;
+    flex-wrap: wrap;
 }
 
 .book-card {
@@ -46,6 +47,8 @@ button:focus {
     text-align: center;
     border-radius: 3px;
     padding: 25px;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 .new-book-form-container {
@@ -60,6 +63,12 @@ button:focus {
 #add {
     padding: 15px 25px;
     margin-bottom: 10px;
+}
+
+.remove-book {
+    margin-top: 20px;
+    background-color: rgb(204, 28, 28);
+    color: white;
 }
 
 .popup-form {
@@ -87,4 +96,8 @@ button:focus {
 
 .form-input:focus {
     outline: none;
+}
+
+.display-none {
+    display: none;
 }
