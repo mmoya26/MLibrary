@@ -23,7 +23,7 @@
         <form class="popup-form">
             <h3 class="form-title">Add new book</h3>
             <input type="text" placeholder="Title" class="form-input" id="input-title" required>
-            <input type="text" placeholder="Author" class="form-input" id="input-author" required> 
+            <input type="text" placeholder="Author" class="form-input" id="input-author" required>
             <input type="number" placeholder="Pages" class="form-input" id="input-pages" required>
             <div class="form-read-container">
                 <label for="haveRead">Have you read this book already?</label>
@@ -32,6 +32,16 @@
             <button id="add" type="submit">Add</button>
         </form>
     </div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-database.js"></script>
+
+    <!-- My JS Files -->
+    <script src="setup.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

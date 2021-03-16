@@ -1,3 +1,6 @@
+let database = firebase.database();
+let ref = database.ref('books');
+
 let myLibrary = [];
 
 const booksContainer = document.querySelector('.books');
@@ -22,13 +25,16 @@ addNewBookButton.addEventListener('click', (e) => {
     buttonFormContainer.classList.toggle('display-none');
 });
 
-// Cosntructor
+// Constructor
 function Book(title, author, pages, read) {
     this.title = title
     this.author = author
     this.pages = pages
     this.read = read
-    this.info = () => `${this.title} by ${this.author}, ${this.pages} pages, ${read ? 'already read' : 'have not read yet'}`
+}
+
+Book.prototype.info = function() {
+    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? 'already read' : 'have not read yet'}`;
 }
 
 function clearInputs() {
@@ -62,7 +68,6 @@ function removeSpecificBook(title) {
 }
 
 function displayBooks() {
-    alert('working for sure');
     removeAllBooks();
 
     myLibrary.forEach(book => {
@@ -112,4 +117,17 @@ function displayBooks() {
         bookCardContainer.appendChild(removeBookButton);
         booksContainer.appendChild(bookCardContainer);
     });
+}
+
+// Database Stuff
+ref.push(data);
+console.log(data);
+
+
+function populateBooksArray() {
+
+}
+
+function saveBooksToDatabase() {
+
 }
