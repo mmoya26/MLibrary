@@ -46,15 +46,10 @@ function clearInputs() {
 
 function addBookToLibraryArray(book) {
     ref.push(book)
-    // displayBooks();
 }
 
-// function updateDatabaseLibrary(book) {
-//     ref.push(book)
-// }
-
 // Created to refresh the page
-function removeAllBooks() {
+function removeAllBooksFromUI() {
     
     while(booksContainer.firstChild) {
         booksContainer.removeChild(booksContainer.firstChild);
@@ -62,24 +57,15 @@ function removeAllBooks() {
 }
 
 function removeSpecificBook(title) {
-
     myLibrary.forEach(book => {
         if (book.title === title) {
             ref.child(book.uniqueID).remove();
         }
     });
-
-
-    // let filteredBooks = myLibrary.filter(book => {
-    //     return book.title != title;
-    // });
-
-    // myLibrary = filteredBooks;
-    // displayBooks();
 }
 
 function displayBooks() {
-    removeAllBooks();
+    removeAllBooksFromUI();
 
     myLibrary.forEach(book => {
         // Creating elements and assign their respective data
@@ -94,8 +80,19 @@ function displayBooks() {
         let bookPages = document.createElement('p');
         bookPages.textContent = `Book Pages: ${book.pages}`;
 
-        let bookRead = document.createElement('p');
-        bookRead.textContent = `Have read: ${book.read}`
+        let bookRead = document.createElement('button');
+        bookRead.textContent = `${book.read ? 'Read' : 'Not Read'}`
+        bookRead.addEventListener('click', (e) => {
+            e.target.classList.toggle('haveRead');
+            e.target.classList.toggle('haventRead');
+            e.target.textContent = e.target.classList.contains('haveRead') ? 'Read' : 'Not Read';
+            e.target.classList.contains('haveRead') ? book.read = true : book.read = false;
+
+            // Update book in the database
+            ref.child(book.uniqueID).update(book);
+        });
+
+        let bookButtonsContainer = document.createElement('div');
         
         // Remove button
         let removeBookButton = document.createElement('button');
@@ -105,10 +102,8 @@ function displayBooks() {
             let card = e.target.parentElement;
             let container = card.parentElement;
 
-            let title = card.querySelector('h3').textContent;
+            let title = container.querySelector('h3').textContent;
             removeSpecificBook(title);
-            
-            container.removeChild(card);
         })
 
         // Add classes to all of the created elements
@@ -116,16 +111,19 @@ function displayBooks() {
         bookTitle.classList.add('book-title');
         bookAuthor.classList.add('book-author');
         bookPages.classList.add('book-pages');
-        bookRead.classList.add('book-read');
+        bookRead.classList.add('read');
+        bookRead.classList.add(`${book.read ? 'haveRead' : 'haventRead'}`);
         removeBookButton.classList.add('remove-book');
+        bookButtonsContainer.classList.add('book-buttons');
 
         // Appends elements to the card container then container is added to the DOM element that
         // holds all of the cards
+        bookButtonsContainer.appendChild(bookRead);
+        bookButtonsContainer.appendChild(removeBookButton);
         bookCardContainer.appendChild(bookTitle);
         bookCardContainer.appendChild(bookAuthor);
         bookCardContainer.appendChild(bookPages);
-        bookCardContainer.appendChild(bookRead);
-        bookCardContainer.appendChild(removeBookButton);
+        bookCardContainer.appendChild(bookButtonsContainer);        
         booksContainer.appendChild(bookCardContainer);
     });
 }
@@ -135,36 +133,26 @@ function populateBooksArray() {
     ref.on('value', updateBookData, errorWithData)
 }
 
-// function removeBookFromDatabase(booktitle) {
-//     let arrayData = [];
-//     var books = data.val();
-//     let keys = Object.keys(books);
-
-//     keys.forEach(bookKey => { 
-//         if (books[bookKey].title === book) {
-//             console.log("Found");
-//         }
-//     });
-
-// }
-
 function updateBookData(data) {
     var books = data.val();
+
+    // books = data.val() returns null it means that there are no books in the database
+    // thefore there shouldn't be any books in memory either
+    if (books === null) {
+        removeAllBooksFromUI();
+        myLibrary = []; 
+        return
+    }
+
     let keys = Object.keys(books);
     myLibrary = [];
-
-    // if (book != null) {
-    //     removeBookFromDatabase(title, data)
-    // } else {
-    //     console.log("Book is null thefore no books were removed");
-    // }
     
     for (let i = 0; i < keys.length; i++) {
+        // Set uniqueID field to their specific Firebase unique ID to each book stored in the database
         books[keys[i]].uniqueID = keys[i];
         myLibrary.push(books[keys[i]]);
     }
 
-    // console.log(myLibrary);
     displayBooks();
 }
 

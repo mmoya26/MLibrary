@@ -66,9 +66,29 @@ button:focus {
 }
 
 .remove-book {
-    margin-top: 20px;
     background-color: rgb(204, 28, 28);
     color: white;
+    margin-left: 20px;
+}
+
+.book-buttons {
+    display: flex;
+    margin-top: 20px;
+}
+
+.read {
+    border-radius: 3px;
+    padding: 15px 30px;
+}
+
+.haveRead {
+    background-color: #17c314;
+    color: #021902;
+}
+
+.haventRead {
+    background-color: #ff7979;
+    color: #190505;
 }
 
 .popup-form {
