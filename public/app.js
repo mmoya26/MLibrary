@@ -4,9 +4,7 @@ let ref = database.ref('books');
 let myLibrary = [];
 
 const booksContainer = document.querySelector('.books');
-
 const buttonFormContainer = document.querySelector('.new-book-form-container');
-
 const titleInput = document.getElementById('input-title');
 const authorInput = document.getElementById('input-author');
 const pagesInput = document.getElementById('input-pages');
@@ -14,7 +12,7 @@ const readInput = document.getElementById('haveRead');
 
 const addBookButton = document.getElementById('add');
 addBookButton.addEventListener('click', (e) => {
-    addBookToLibrary(new Book(titleInput.value, authorInput.value, pagesInput.value, readInput.checked ? true : false));
+    addBookToLibraryArray(new Book(titleInput.value, authorInput.value, pagesInput.value, readInput.checked ? true : false));
     e.preventDefault();
     clearInputs();
     buttonFormContainer.classList.toggle('display-none');
@@ -31,6 +29,7 @@ function Book(title, author, pages, read) {
     this.author = author
     this.pages = pages
     this.read = read
+    this.uniqueID = ""
 }
 
 Book.prototype.info = function() {
@@ -45,10 +44,14 @@ function clearInputs() {
 }
 
 
-function addBookToLibrary(book) {
-    myLibrary.push(book);
-    displayBooks();
+function addBookToLibraryArray(book) {
+    ref.push(book)
+    // displayBooks();
 }
+
+// function updateDatabaseLibrary(book) {
+//     ref.push(book)
+// }
 
 // Created to refresh the page
 function removeAllBooks() {
@@ -59,12 +62,20 @@ function removeAllBooks() {
 }
 
 function removeSpecificBook(title) {
-    let filteredBooks = myLibrary.filter(book => {
-        return book.title != title;
+
+    myLibrary.forEach(book => {
+        if (book.title === title) {
+            ref.child(book.uniqueID).remove();
+        }
     });
 
-    myLibrary = filteredBooks;
-    displayBooks();
+
+    // let filteredBooks = myLibrary.filter(book => {
+    //     return book.title != title;
+    // });
+
+    // myLibrary = filteredBooks;
+    // displayBooks();
 }
 
 function displayBooks() {
@@ -121,28 +132,44 @@ function displayBooks() {
 
 // Database setup
 function populateBooksArray() {
-    ref.on('value', gotData, errorWithData)
+    ref.on('value', updateBookData, errorWithData)
 }
 
-function gotData(data) {
+// function removeBookFromDatabase(booktitle) {
+//     let arrayData = [];
+//     var books = data.val();
+//     let keys = Object.keys(books);
+
+//     keys.forEach(bookKey => { 
+//         if (books[bookKey].title === book) {
+//             console.log("Found");
+//         }
+//     });
+
+// }
+
+function updateBookData(data) {
     var books = data.val();
     let keys = Object.keys(books);
+    myLibrary = [];
+
+    // if (book != null) {
+    //     removeBookFromDatabase(title, data)
+    // } else {
+    //     console.log("Book is null thefore no books were removed");
+    // }
     
     for (let i = 0; i < keys.length; i++) {
+        books[keys[i]].uniqueID = keys[i];
         myLibrary.push(books[keys[i]]);
-        
     }
 
-    console.log(myLibrary);
+    // console.log(myLibrary);
     displayBooks();
 }
 
 function errorWithData(err) {
     console.log(err);
-}
-
-function saveBooksToDatabase() {
-
 }
 
 populateBooksArray();
