@@ -71,14 +71,24 @@ function displayBooks() {
         // Creating elements and assign their respective data
         let bookCardContainer = document.createElement('div');
 
+        let titleBarContainer = document.createElement('div');
+
         let bookTitle = document.createElement('h3');
         bookTitle.textContent = book.title;
 
+        let editIcon = document.createElement('i');
+
+        let bookAuthorH4 = document.createElement('h4');
+        bookAuthorH4.textContent = 'Author';
+
         let bookAuthor = document.createElement('p');
-        bookAuthor.textContent = `Book Author: ${book.author}`;
+        bookAuthor.textContent = `${book.author}`;
+
+        let bookPagesH4 = document.createElement('h4');
+        bookPagesH4.textContent = 'Pages';
 
         let bookPages = document.createElement('p');
-        bookPages.textContent = `Book Pages: ${book.pages}`;
+        bookPages.textContent = `${book.pages}`;
 
         let bookRead = document.createElement('button');
         bookRead.textContent = `${book.read ? 'Read' : 'Not Read'}`
@@ -108,20 +118,29 @@ function displayBooks() {
 
         // Add classes to all of the created elements
         bookCardContainer.classList.add('book-card');
+        titleBarContainer.classList.add('title-bar');
         bookTitle.classList.add('book-title');
+        editIcon.classList.add('far');
+        editIcon.classList.add('fa-edit')
+        editIcon.classList.add('edit-icon');
         bookAuthor.classList.add('book-author');
         bookPages.classList.add('book-pages');
         bookRead.classList.add('read');
         bookRead.classList.add(`${book.read ? 'haveRead' : 'haventRead'}`);
         removeBookButton.classList.add('remove-book');
+        removeBookButton.classList.add('read');
         bookButtonsContainer.classList.add('book-buttons');
 
         // Appends elements to the card container then container is added to the DOM element that
         // holds all of the cards
+        titleBarContainer.appendChild(bookTitle);
+        titleBarContainer.appendChild(editIcon);
         bookButtonsContainer.appendChild(bookRead);
         bookButtonsContainer.appendChild(removeBookButton);
-        bookCardContainer.appendChild(bookTitle);
+        bookCardContainer.appendChild(titleBarContainer);
+        bookCardContainer.appendChild(bookAuthorH4);
         bookCardContainer.appendChild(bookAuthor);
+        bookCardContainer.appendChild(bookPagesH4);
         bookCardContainer.appendChild(bookPages);
         bookCardContainer.appendChild(bookButtonsContainer);        
         booksContainer.appendChild(bookCardContainer);

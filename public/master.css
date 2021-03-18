@@ -2,13 +2,77 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Lato', sans-serif;
 }
 
+a {
+    text-decoration: none;
+}
 
 h1 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
+    color: #3E3E3E;
+    font-size: 3rem;
+}
+
+.sub-heading {
+    font-size: 1.125rem;
+    color: #7B7B7B;
+    font-weight: normal;
+    text-align: center;
+    margin-bottom: 1.25rem;
+}
+
+
+.sub-heading a {
+    color: #0986CC;
+}
+
+.sub-heading a:hover {
+    text-decoration: underline;
+}
+
+/* Add New Book Button + Animation */
+
+.add-new-book {
+    width: 50px;
+    border-radius: 25px;
+    background: none;
+    transition: width .5s ease;
+    background-color: #0986CC;
+    border: none;
+    color: white;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.add-new-book span {
+    white-space: nowrap;
+    transition: all ease .3s;
+    opacity: 0;
+    font-size: 16px;
+    margin-left: 20px;
+    /* line-height: 20px; */
+}
+
+.add-new-book i {
+    transform: translateX(3px);
+}
+
+.add-new-book:hover {
+    width: 140px;
+    /* justify-content: space-around; */
+}
+
+.add-new-book:hover span {
+    opacity: 1;
+    /* transition-delay: .3s; */
+    transition: all ease .3s;
 }
 
 button {
@@ -20,12 +84,6 @@ button {
     border-radius: 3px;
 }
 
-#add-new-book {
-    background-color: rgb(157, 247, 67);
-    color: rgb(31,134,13);
-    margin: 0 auto;
-}
-
 button:focus {
     outline: none;
 }
@@ -34,21 +92,52 @@ button:focus {
     width: 80%;
     margin: 0 auto;
     display: flex;
-    /* justify-content: space-around; */
     margin-top: 50px;
     flex-wrap: wrap;
 }
 
+.title-bar {
+    background-color: #0986CC;
+    height: 4.0625rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+}
+
+.book-title {
+    color: white;
+}
+
+.edit-icon {
+    color: white;
+    margin-left: 0.9375rem;
+    cursor: pointer;
+}
+
+.book-card>h4 {
+    margin-top: 0.9375rem;
+    color: #000000;
+    font-size: 1.125rem;
+}
+
+.book-card>p {
+    font-size: 1rem;
+    margin-top: 0.3125rem;
+}
+
 .book-card {
-    background-color: blanchedalmond;
-    /* width: 15%; */
+    background-color: #F3F3F3;
+    width: 20%;
     display: flex;
     flex-direction: column;
     text-align: center;
     border-radius: 3px;
-    padding: 25px;
     margin-right: 10px;
     margin-bottom: 10px;
+    -webkit-box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
 }
 
 .new-book-form-container {
@@ -66,29 +155,33 @@ button:focus {
 }
 
 .remove-book {
-    background-color: rgb(204, 28, 28);
-    color: white;
-    margin-left: 20px;
+    color: #000000;
+    text-decoration: underline;
+    background-color: transparent;
+    font-weight: normal;
 }
 
 .book-buttons {
     display: flex;
-    margin-top: 20px;
+    margin: 1.875rem auto 1.25rem auto;
+    width: 100%;
+    justify-content: space-around;
 }
 
 .read {
     border-radius: 3px;
-    padding: 15px 30px;
+    padding: 0.8125rem 1.5625rem;
+    font-size: 1rem;
 }
 
 .haveRead {
-    background-color: #17c314;
-    color: #021902;
+    background-color: #2AC564;
+    color: white;
 }
 
 .haventRead {
-    background-color: #ff7979;
-    color: #190505;
+    background-color: #D64933;
+    color: white;
 }
 
 .popup-form {
