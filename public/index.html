@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +11,22 @@
     <link rel="stylesheet" href="master.css">
     <script src="https://kit.fontawesome.com/da5aef46e5.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
+    <div class="overlay display-none">
+        <form class="popup-form display-none" id="form">
+            <i class="fas fa-2x fa-times" id="x"></i>
+            <h3 class="form-title">Add New Book</h3>
+            <input type="text" placeholder="Title" class="form-input" id="input-title">
+            <input type="text" placeholder="Author" class="form-input" id="input-author">
+            <input type="number" placeholder="Pages" class="form-input" id="input-pages">
+            <p for="haveRead">Have you read this book already?</p>
+            <div class="form-read-container-buttons">
+                <button id="yesButton">YES</button><button id="noButton">NO</button>
+            </div>
+            <button id="add" type="submit">Add</button>
+        </form>
+    </div>
     <h1>&lt;My Library Application/></h1>
     <h2 class="sub-heading">This project is for <a href="#">The Odin Project: Library Lesson</a></h2>
     <button class="add-new-book" id="add-new-book"><i class="fas fa-2x fa-plus" style="color: white"></i><span>Add
@@ -45,19 +61,9 @@
             </div>
         </div> -->
     </div>
-    <div class="new-book-form-container display-none">
-        <form class="popup-form">
-            <h3 class="form-title">Add new book</h3>
-            <input type="text" placeholder="Title" class="form-input" id="input-title">
-            <input type="text" placeholder="Author" class="form-input" id="input-author">
-            <input type="number" placeholder="Pages" class="form-input" id="input-pages">
-            <div class="form-read-container">
-                <label for="haveRead">Have you read this book already?</label>
-                <input type="checkbox" name="" id="haveRead">
-            </div>
-            <button id="add" type="submit">Add</button>
-        </form>
-    </div>
+    <footer>
+        This project is powered by Firebase Hosting and Firebase Realtime Database
+    </footer>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script>
 
@@ -70,4 +76,5 @@
     <script src="setup.js"></script>
     <script src="app.js"></script>
 </body>
+
 </html>

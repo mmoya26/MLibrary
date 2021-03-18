@@ -4,23 +4,43 @@ let ref = database.ref('books');
 let myLibrary = [];
 
 const booksContainer = document.querySelector('.books');
-const buttonFormContainer = document.querySelector('.new-book-form-container');
+const form = document.getElementById('form');
+const overlay = document.querySelector('.overlay');
 const titleInput = document.getElementById('input-title');
 const authorInput = document.getElementById('input-author');
 const pagesInput = document.getElementById('input-pages');
 const readInput = document.getElementById('haveRead');
 
+const yesButton = document.getElementById('yesButton');
+yesButton.addEventListener('click', (e) => {
+    selectReadOption(e);
+});
+
+const noButton = document.getElementById('noButton');
+noButton.addEventListener('click', (e) => {
+    selectReadOption(e);
+});
+
 const addBookButton = document.getElementById('add');
 addBookButton.addEventListener('click', (e) => {
-    addBookToLibraryArray(new Book(titleInput.value, authorInput.value, pagesInput.value, readInput.checked ? true : false));
+    addBookToLibraryArray(new Book(titleInput.value, authorInput.value, pagesInput.value, false));
     e.preventDefault();
     clearInputs();
-    buttonFormContainer.classList.toggle('display-none');
+    form.classList.toggle('display-none');
+    overlay.classList.toggle('display-none');
 });
 
 const addNewBookButton = document.getElementById('add-new-book');
 addNewBookButton.addEventListener('click', (e) => {
-    buttonFormContainer.classList.toggle('display-none');
+    form.classList.toggle('display-none');
+    overlay.classList.toggle('display-none');
+});
+
+const xClose = document.getElementById('x');
+xClose.addEventListener('click', (e) => {
+    clearInputs();
+    form.classList.toggle('display-none');
+    overlay.classList.toggle('display-none');
 });
 
 // Constructor
@@ -36,11 +56,25 @@ Book.prototype.info = function() {
     return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? 'already read' : 'have not read yet'}`;
 }
 
+function selectReadOption(e) {
+    e.preventDefault();
+    let element = e.target;
+
+    if (element.id === "yesButton" && element.nextSibling.classList.contains('selected')) {
+        noButton.classList.toggle('selected');
+    } else if (element.id === "noButton" && element.previousSibling.classList.contains('selected')) {
+        yesButton.classList.toggle('selected');
+    }
+
+    element.classList.toggle('selected');
+}
+
 function clearInputs() {
     titleInput.value = "";
     authorInput.value = "";
     pagesInput.value = "";
-    readInput.checked = false;
+    yesButton.classList.remove('selected');
+    noButton.classList.remove('selected');
 }
 
 
@@ -106,7 +140,7 @@ function displayBooks() {
         
         // Remove button
         let removeBookButton = document.createElement('button');
-        removeBookButton.textContent = "Remove Book";
+        removeBookButton.textContent = "Remove";
         removeBookButton.addEventListener('click', (e) => {
             e.preventDefault();
             let card = e.target.parentElement;
