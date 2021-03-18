@@ -23,7 +23,7 @@ noButton.addEventListener('click', (e) => {
 
 const addBookButton = document.getElementById('add');
 addBookButton.addEventListener('click', (e) => {
-    addBookToLibraryArray(new Book(titleInput.value, authorInput.value, pagesInput.value, false));
+    addBookToLibraryArray(new Book(titleInput.value, authorInput.value, pagesInput.value, yesButton.classList.contains('selected') ? true : false));
     e.preventDefault();
     clearInputs();
     form.classList.toggle('display-none');
