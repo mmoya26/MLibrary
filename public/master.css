@@ -101,7 +101,7 @@ button:focus {
 
 .title-bar {
     background-color: #0986CC;
-    height: 4.0625rem;
+    padding: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -110,6 +110,7 @@ button:focus {
 
 .book-title {
     color: white;
+    word-break: break-all;
 }
 
 .edit-icon {
@@ -126,7 +127,9 @@ button:focus {
 
 .book-card>p {
     font-size: 1rem;
-    margin-top: 0.3125rem;
+    margin: 0.3125rem auto 0 auto;
+    word-break: break-all;
+    width: 60%;
 }
 
 .book-card {
@@ -141,11 +144,12 @@ button:focus {
     -webkit-box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
     box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+    justify-content: flex-start;
+    height: auto;
 }
 
 #add {
     padding: 15px 25px;
-    margin-bottom: 1.875rem;
     background-color: #0986CC;
     color: white;
 }
@@ -190,27 +194,28 @@ footer {
 
 
 .popup-form {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
     display: flex;
     flex-direction: column;
     background-color: #F8F8F8;
-    width: 40%;
-    height: 55%;
+    max-width: 40%;
     align-items: center;
+    margin: 100px auto;
     -webkit-box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
     box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+    padding: 1.875rem 0;
+}
+
+.form-heading {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
 }
 
 #x {
-    position: absolute;
-    right: 20px;
-    top: 10px;
     color: #D64933;
+    margin-left: 20px;
 }
 
 .overlay {
@@ -227,7 +232,6 @@ footer {
   }
 
 .form-title {
-    margin-top: 1.875rem;
     font-size: 3rem;
     color: #3E3E3E;
     
@@ -293,6 +297,10 @@ footer {
         width: 26%;
         margin-right: 20px;
     }
+
+    .popup-form {
+        max-width: 70%;
+    }
 }
 
 @media only screen and (max-width: 1200px) {
@@ -317,6 +325,10 @@ footer {
     .book-card {
         width: 45%;
     }
+
+    .popup-form {
+        max-width: 85%;
+    }
 }
 
 @media only screen and (max-width: 650px) {
@@ -332,5 +344,19 @@ footer {
 @media only screen and (max-width: 500px) {
     .book-card {
         width: 80%;
+    }
+
+    .popup-form {
+        max-width: 90%;
+    }
+
+    .form-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .book-card {
+        width: 95%;
     }
 }
