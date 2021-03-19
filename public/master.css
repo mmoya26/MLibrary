@@ -3,7 +3,6 @@
     padding: 0;
     margin: 0;
     font-family: 'Lato', sans-serif;
-    z-index: 0;
 }
 
 a {
@@ -189,7 +188,6 @@ footer {
     color: #7B7B7B;
     margin-bottom: 1.25rem;
     margin-left: 0.9375rem;
-
 }
 
 
