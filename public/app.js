@@ -111,6 +111,18 @@ function displayBooks() {
         bookTitle.textContent = book.title;
 
         let editIcon = document.createElement('i');
+        editIcon.addEventListener('click', (e) => {           
+            form.classList.toggle('display-none');
+            overlay.classList.toggle('display-none');
+            
+            let bookCardElement = e.target.parentElement.parentElement;
+            let bookTitle = bookCardElement.querySelector('.title-bar .book-title').textContent;
+            let bookAuthor = bookCardElement.querySelector('.book-author').textContent;
+            let bookPages = bookCardElement.querySelector('.book-pages').textContent;
+            let bookRead = bookCardElement.querySelector('.book-buttons .read').classList.contains('haveRead') ? true : false;
+
+            editBook(bookTitle, bookAuthor, bookPages, bookRead);
+        });
 
         let bookAuthorH4 = document.createElement('h4');
         bookAuthorH4.textContent = 'Author';
@@ -179,6 +191,18 @@ function displayBooks() {
         bookCardContainer.appendChild(bookButtonsContainer);        
         booksContainer.appendChild(bookCardContainer);
     });
+}
+
+function editBook(title, author, pages, read) {
+    titleInput.value = title;
+    authorInput.value = author;
+    pagesInput.value = pages;
+
+    if (read) {
+        yesButton.classList.toggle('selected');
+    } else {
+        noButton.classList.toggle('selected');
+    }
 }
 
 // Database setup
