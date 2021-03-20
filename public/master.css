@@ -147,7 +147,7 @@ button:focus {
     height: auto;
 }
 
-#add {
+.add-edit {
     padding: 15px 25px;
     background-color: #0986CC;
     color: white;

@@ -2,6 +2,7 @@ let database = firebase.database();
 let ref = database.ref('books');
 
 let myLibrary = [];
+let temporaryBook = null;
 
 const booksContainer = document.querySelector('.books');
 const form = document.getElementById('form');
@@ -30,6 +31,20 @@ addBookButton.addEventListener('click', (e) => {
     overlay.classList.toggle('display-none');
 });
 
+const doneButton = document.getElementById('done');
+doneButton.addEventListener('click', (e) => { 
+    e.preventDefault();
+    temporaryBook.title = titleInput.value;
+    temporaryBook.author = authorInput.value;
+    temporaryBook.pages = pagesInput.value;
+    updateBook(temporaryBook);
+    clearInputs();
+    form.classList.toggle('display-none');
+    overlay.classList.toggle('display-none');
+    doneButton.classList.toggle('display-none');
+    addBookButton.classList.toggle('display-none');
+});
+
 const addNewBookButton = document.getElementById('add-new-book');
 addNewBookButton.addEventListener('click', (e) => {
     form.classList.toggle('display-none');
@@ -39,8 +54,17 @@ addNewBookButton.addEventListener('click', (e) => {
 const xClose = document.getElementById('x');
 xClose.addEventListener('click', (e) => {
     clearInputs();
+    temporaryBook = null;
     form.classList.toggle('display-none');
     overlay.classList.toggle('display-none');
+
+    if (!addBookButton.classList.contains('display-none')) {
+        console.log("Add button being displayed");
+    } else {
+        addBookButton.classList.toggle('display-none');
+        doneButton.classList.toggle('display-none');
+    }   
+    
 });
 
 // Constructor
@@ -54,6 +78,10 @@ function Book(title, author, pages, read) {
 
 Book.prototype.info = function() {
     return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? 'already read' : 'have not read yet'}`;
+}
+
+function updateBook(book) {
+    ref.child(book.uniqueID).update(book);
 }
 
 function selectReadOption(e) {
@@ -114,12 +142,22 @@ function displayBooks() {
         editIcon.addEventListener('click', (e) => {           
             form.classList.toggle('display-none');
             overlay.classList.toggle('display-none');
+            addBookButton.classList.toggle('display-none');
+            doneButton.classList.toggle('display-none');
             
             let bookCardElement = e.target.parentElement.parentElement;
             let bookTitle = bookCardElement.querySelector('.title-bar .book-title').textContent;
             let bookAuthor = bookCardElement.querySelector('.book-author').textContent;
             let bookPages = bookCardElement.querySelector('.book-pages').textContent;
             let bookRead = bookCardElement.querySelector('.book-buttons .read').classList.contains('haveRead') ? true : false;
+
+            myLibrary.forEach(book => {
+                if (book.title === bookTitle) {
+                    console.log(book.title);
+                    temporaryBook = book;
+                    console.log(temporaryBook);
+                }
+            })
 
             editBook(bookTitle, bookAuthor, bookPages, bookRead);
         });
