@@ -24,8 +24,13 @@ noButton.addEventListener('click', (e) => {
 
 const addBookButton = document.getElementById('add');
 addBookButton.addEventListener('click', (e) => {
-    addBookToLibraryArray(new Book(titleInput.value, authorInput.value, pagesInput.value, yesButton.classList.contains('selected') ? true : false));
     e.preventDefault();
+
+    if(!validateForm(false)) {
+        return;
+    }
+
+    addBookToLibraryArray(new Book(titleInput.value, authorInput.value, pagesInput.value, yesButton.classList.contains('selected') ? true : false));
     clearInputs();
     form.classList.toggle('display-none');
     overlay.classList.toggle('display-none');
@@ -34,6 +39,11 @@ addBookButton.addEventListener('click', (e) => {
 const doneButton = document.getElementById('done');
 doneButton.addEventListener('click', (e) => { 
     e.preventDefault();
+
+    if(!validateForm(true)) {
+        return;
+    }
+
     temporaryBook.title = titleInput.value;
     temporaryBook.author = authorInput.value;
     temporaryBook.pages = pagesInput.value;
@@ -104,6 +114,37 @@ function clearInputs() {
     pagesInput.value = "";
     yesButton.classList.remove('selected');
     noButton.classList.remove('selected');
+}
+
+function validateForm(editMode) {
+    let returnBool = true;
+
+    for (let i = 0; i < myLibrary.length; i++) { 
+        if(titleInput.value === "" || authorInput.value === "" || pagesInput.value === "") {
+            alert("Ensure to fill out all three required fields, title, author, and page number.");
+            returnBool = false;
+            break;
+        }
+
+        if (!editMode) {
+            if (titleInput.value.toUpperCase() === myLibrary[i].title.toUpperCase()) {
+                alert("Book with the same title already exists, choose a different title for the book being added/edited.");
+                returnBool = false;
+                break;
+            }
+        } else {
+            if (titleInput.value.toUpperCase() === temporaryBook.title.toUpperCase()) {
+                // Nothing happens if the title stays the same as the one being edited.
+            } else if (titleInput.value.toUpperCase() === myLibrary[i].title.toUpperCase()) {
+                alert("Book with the same title already exists, choose a different title for the book being added/edited.");
+                returnBool = false;
+                break;
+            }
+        }
+        
+    }
+
+    return returnBool;
 }
 
 
