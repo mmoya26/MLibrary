@@ -37,6 +37,7 @@ doneButton.addEventListener('click', (e) => {
     temporaryBook.title = titleInput.value;
     temporaryBook.author = authorInput.value;
     temporaryBook.pages = pagesInput.value;
+    temporaryBook.read = yesButton.classList.contains('selected') ? true : false
     updateBook(temporaryBook);
     clearInputs();
     form.classList.toggle('display-none');
@@ -157,7 +158,7 @@ function displayBooks() {
                     temporaryBook = book;
                     console.log(temporaryBook);
                 }
-            })
+            });
 
             editBook(bookTitle, bookAuthor, bookPages, bookRead);
         });
