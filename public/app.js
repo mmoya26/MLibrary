@@ -4,25 +4,28 @@ let ref = database.ref('books');
 let myLibrary = [];
 let temporaryBook = null;
 
+// DOM Elements
 const booksContainer = document.querySelector('.books');
+const addNewBookButton = document.getElementById('add-new-book');
 const form = document.getElementById('form');
+const xClose = document.getElementById('x');
 const overlay = document.querySelector('.overlay');
 const titleInput = document.getElementById('input-title');
 const authorInput = document.getElementById('input-author');
 const pagesInput = document.getElementById('input-pages');
-const readInput = document.getElementById('haveRead');
-
+const addBookButton = document.getElementById('add');
+const doneButton = document.getElementById('done');
 const yesButton = document.getElementById('yesButton');
+const noButton = document.getElementById('noButton');
+
 yesButton.addEventListener('click', (e) => {
     selectReadOption(e);
 });
 
-const noButton = document.getElementById('noButton');
 noButton.addEventListener('click', (e) => {
     selectReadOption(e);
 });
 
-const addBookButton = document.getElementById('add');
 addBookButton.addEventListener('click', (e) => {
     e.preventDefault();
 
@@ -30,13 +33,14 @@ addBookButton.addEventListener('click', (e) => {
         return;
     }
 
-    addBookToLibraryArray(new Book(titleInput.value, authorInput.value, pagesInput.value, yesButton.classList.contains('selected') ? true : false));
+    addBook(new Book(titleInput.value, authorInput.value, pagesInput.value, yesButton.classList.contains('selected') ? true : false));
     clearInputs();
+
+    // Hiding form and overlay
     form.classList.toggle('display-none');
     overlay.classList.toggle('display-none');
 });
 
-const doneButton = document.getElementById('done');
 doneButton.addEventListener('click', (e) => { 
     e.preventDefault();
 
@@ -50,19 +54,19 @@ doneButton.addEventListener('click', (e) => {
     temporaryBook.read = yesButton.classList.contains('selected') ? true : false
     updateBook(temporaryBook);
     clearInputs();
+
+    // Hiding form and overlay
     form.classList.toggle('display-none');
     overlay.classList.toggle('display-none');
     doneButton.classList.toggle('display-none');
     addBookButton.classList.toggle('display-none');
 });
 
-const addNewBookButton = document.getElementById('add-new-book');
 addNewBookButton.addEventListener('click', (e) => {
     form.classList.toggle('display-none');
     overlay.classList.toggle('display-none');
 });
 
-const xClose = document.getElementById('x');
 xClose.addEventListener('click', (e) => {
     clearInputs();
     temporaryBook = null;
@@ -148,7 +152,9 @@ function validateForm(editMode) {
 }
 
 
-function addBookToLibraryArray(book) {
+// Adds book to Firebase database which will then update the myLibrary array due to
+// Firebase event that updates UI when the data in the database is updated
+function addBook(book) {
     ref.push(book)
 }
 
@@ -168,6 +174,7 @@ function removeSpecificBook(title) {
     });
 }
 
+// Displays all of the books found in myLibrary array
 function displayBooks() {
     removeAllBooksFromUI();
 
@@ -201,7 +208,7 @@ function displayBooks() {
                 }
             });
 
-            editBook(bookTitle, bookAuthor, bookPages, bookRead);
+            setUpBookForEdit(bookTitle, bookAuthor, bookPages, bookRead);
         });
 
         let bookAuthorH4 = document.createElement('h4');
@@ -273,7 +280,8 @@ function displayBooks() {
     });
 }
 
-function editBook(title, author, pages, read) {
+// Set-up all of the form fields to be auto-filled for the user to start editing
+function setUpBookForEdit(title, author, pages, read) {
     titleInput.value = title;
     authorInput.value = author;
     pagesInput.value = pages;
@@ -287,6 +295,8 @@ function editBook(title, author, pages, read) {
 
 // Database setup
 function populateBooksArray() {
+    // UpdateBookData will be called when the ref.on() is successful
+    // errorWithData will be called when the ref.on() is unsuccessful
     ref.on('value', updateBookData, errorWithData)
 }
 
