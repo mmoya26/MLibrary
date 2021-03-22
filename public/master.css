@@ -184,6 +184,7 @@ button:focus {
 }
 
 footer {
+    text-align: center;
     font-size: 1.125rem;
     color: #7B7B7B;
     margin-bottom: 1.25rem;
@@ -336,7 +337,6 @@ footer {
     }
 
     footer {
-        text-align: center;
         margin-left: 0;
     }
 }
