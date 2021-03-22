@@ -339,6 +339,14 @@ footer {
     footer {
         margin-left: 0;
     }
+
+    .add-new-book {
+        width: 140px;
+    }
+
+    .add-new-book span {
+        opacity: 1;
+    }
 }
 @media only screen and (max-width: 500px) {
     .book-card {
